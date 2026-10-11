@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Dutch Lens — Dutch Text Tutor</title>
+  <style>
+    :root{color-scheme:light;--ink:#172522;--muted:#687570;--paper:#f7f5ef;--card:#fff;--line:#e5e7e0;--green:#1e7665;--green-dark:#155c4f;--mint:#e5f2ec;--orange:#f1a06d;--shadow:0 18px 50px rgba(33,54,47,.08)}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 6% 0%,#e8f2e9 0,transparent 34rem),var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+    button,input,textarea,select{font:inherit} button{cursor:pointer} .wrap{width:min(100%,1050px);margin:auto;padding:22px 20px 56px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}.brand{display:flex;align-items:center;gap:11px;font-weight:750;letter-spacing:-.03em;font-size:20px}.brand-icon{width:42px;height:42px;border-radius:14px;background:var(--green);display:grid;place-items:center;color:white;box-shadow:0 8px 18px #1e766532}.brand-icon svg{width:23px;height:23px}.tag{font-size:12px;color:var(--green-dark);background:#e6f1eb;padding:7px 11px;border-radius:999px;font-weight:650}
+    .hero{max-width:720px;margin:32px auto 26px;text-align:center}.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:var(--green);font-size:11px;font-weight:800}.hero h1{font-size:clamp(34px,7vw,58px);line-height:1.04;letter-spacing:-.055em;margin:13px 0 14px}.hero h1 span{color:var(--green)}.hero p{color:var(--muted);font-size:16px;margin:0 auto;max-width:570px}
+    main{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:18px;align-items:start}.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}.panel h2{margin:0;font-size:18px;letter-spacing:-.025em}.sub{margin:4px 0 17px;color:var(--muted);font-size:13px}.upload{position:relative;border:1.5px dashed #b8c9c0;border-radius:18px;background:#fafcf9;min-height:190px;display:grid;place-items:center;text-align:center;overflow:hidden;transition:.2s}.upload.drag{border-color:var(--green);background:#edf7f1}.upload input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.upload-content{padding:20px;pointer-events:none}.upload-icon{width:48px;height:48px;margin:0 auto 10px;border-radius:16px;background:var(--mint);display:grid;place-items:center;color:var(--green)}.upload-icon svg{width:24px;height:24px}.upload strong{display:block}.upload small{display:block;color:var(--muted);margin-top:4px}.preview{display:none;width:100%;height:245px;object-fit:contain;background:#f4f6f1}.upload.has-image .preview{display:block}.upload.has-image .upload-content{display:none}.clear-photo{display:none;position:absolute;z-index:2;right:10px;top:10px;border:0;border-radius:999px;background:#14231f;color:white;padding:7px 11px;font-size:12px}.upload.has-image .clear-photo{display:block}
+    .or{display:flex;align-items:center;gap:10px;color:#98a19c;font-size:11px;font-weight:700;letter-spacing:.1em;margin:15px 0}.or:before,.or:after{content:"";height:1px;background:var(--line);flex:1}.label{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;margin-bottom:7px}.optional{font-weight:500;color:#929b96;font-size:12px} textarea{width:100%;min-height:100px;resize:vertical;border:1px solid var(--line);border-radius:13px;padding:12px 13px;outline:none;color:var(--ink);background:#fff} textarea:focus,input:focus,select:focus{border-color:#5a9c89;box-shadow:0 0 0 3px #1e76651b;outline:none}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field select,.field input{height:44px;width:100%;border:1px solid var(--line);border-radius:11px;padding:0 11px;background:white}.key-wrap{position:relative}.key-wrap input{padding-right:44px}.eye{position:absolute;right:3px;top:3px;width:38px;height:38px;border:0;background:transparent;color:#727d77;display:grid;place-items:center}.eye svg{width:18px;height:18px}
+    .privacy{display:flex;gap:9px;align-items:flex-start;background:#f5f7f3;border-radius:12px;padding:11px 12px;margin-top:14px;font-size:11px;line-height:1.45;color:#59645e}.privacy svg{width:17px;height:17px;flex:none;color:var(--green);margin-top:1px}.go{margin-top:16px;min-height:50px;width:100%;border:0;border-radius:13px;background:var(--green);color:white;font-weight:750;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 16px #1e766526;transition:.16s}.go:hover{background:var(--green-dark);transform:translateY(-1px)}.go:disabled{opacity:.65;cursor:wait;transform:none}.go svg{width:19px;height:19px}.status{display:none;margin-top:11px;padding:11px 12px;border-radius:11px;font-size:13px}.status.show{display:block}.status.error{color:#963b31;background:#fff0ee}.status.info{color:#315b50;background:#eef7f2}.spinner{width:15px;height:15px;border:2px solid #ffffff77;border-top-color:white;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .result{min-height:300px;position:sticky;top:16px}.empty{min-height:240px;display:grid;place-items:center;text-align:center;color:#78837d}.empty-icon{width:58px;height:58px;border-radius:19px;background:#f1f4ef;display:grid;place-items:center;margin:0 auto 12px;color:#82918a}.empty-icon svg{width:28px;height:28px}.empty p{max-width:235px;font-size:13px;margin:0}.result-content{display:none}.result-content.show{display:block}.result-head{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:14px}.result-head h2{font-size:18px;margin:0}.result-head button{border:1px solid var(--line);border-radius:9px;background:white;color:#53605a;padding:7px 10px;font-size:12px;font-weight:650}.answer{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.7;color:#27332e}.answer h3{font-size:13px;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin:18px 0 5px}.answer p{margin:0 0 11px}.answer ul{padding-left:20px;margin:5px 0 13px}.answer li{margin:4px 0}.note{font-size:11px;color:#8b948e;text-align:center;margin:20px 0 0}.foot{display:flex;justify-content:center;gap:7px;align-items:center;color:#7e8982;font-size:11px;margin-top:23px}.foot svg{width:14px;height:14px}
+    @media(max-width:760px){.wrap{padding:15px 14px 36px}header{margin-bottom:16px}.hero{margin:24px auto 20px}.hero p{font-size:14px}.main{display:block}main{grid-template-columns:1fr}.panel{padding:18px;border-radius:19px}.result{position:static;min-height:240px}.result .empty{min-height:190px}.tag{font-size:11px}.row{gap:9px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><div class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h7M9 11h7"/></svg></div>Dutch Lens</div>
+      <div class="tag">Your Dutch study buddy</div>
+    </header>
+    <section class="hero">
+      <div class="eyebrow">Read • Understand • Remember</div>
+      <h1>Make Dutch text <span>make sense.</span></h1>
+      <p>Take a photo or paste a sentence. Get a clear translation, useful words, and grammar explained at your level.</p>
+    </section>
+    <main>
+      <section class="panel" aria-labelledby="input-title">
+        <h2 id="input-title">Bring some Dutch</h2>
+        <p class="sub">Use a photo, paste text, or do both.</p>
+        <div class="upload" id="dropzone">
+          <button class="clear-photo" type="button" id="removePhoto" aria-label="Remove selected photo">Remove photo</button>
+          <input id="photo" type="file" accept="image/*" capture="environment" aria-label="Choose a photo of Dutch text">
+          <img class="preview" id="preview" alt="Preview of the selected Dutch text photo">
+          <div class="upload-content">
+            <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"/><path d="m8 8 4-4 4 4M12 4v12"/></svg></div>
+            <strong>Choose a photo or take one</strong><small>Tap here · JPG, PNG or HEIC</small>
+          </div>
+        </div>
+        <div class="or">OR PASTE TEXT</div>
+        <div class="label"><label for="dutchText">Dutch text</label><span class="optional">Optional if you add a photo</span></div>
+        <textarea id="dutchText" placeholder="For example: Morgen gaat Sara met haar vriend naar de markt."></textarea>
+        <div class="row">
+          <div class="field"><label for="level">Your Dutch level</label><select id="level"><option>A1 — Beginner</option><option selected>A2 — Elementary</option><option>B1 — Intermediate</option><option>B2 — Upper intermediate</option></select></div>
+          <div class="field"><label for="apiKey">Gemini API key</label><div class="key-wrap"><input id="apiKey" type="password" autocomplete="off" placeholder="Paste your key"><button class="eye" id="toggleKey" type="button" aria-label="Show API key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+        </div>
+        <div class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg><span>Your key is used for the request and is not saved by this page. Your photo and text are sent to Google Gemini; free-tier content may be used to improve Google products, so avoid sensitive material.</span></div>
+        <button class="go" id="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.64 5.64l2.12 2.12m8.48 8.48 2.12 2.12m0-12.72-2.12 2.12m-8.48 8.48-2.12 2.12"/><circle cx="12" cy="12" r="4"/></svg><span>Explain this Dutch</span></button>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+      <section class="panel result" aria-labelledby="result-title">
+        <div class="empty" id="empty">
+          <div><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v18H6.5A2.5 2.5 0 0 1 4 18.5z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 10h6"/></svg></div><h2 id="result-title">Your lesson appears here</h2><p>Upload or paste some Dutch and tap “Explain this Dutch” to begin.</p></div>
+        </div>
+        <div class="result-content" id="resultContent"><div class="result-head"><h2>Your lesson</h2><button type="button" id="copyAnswer">Copy lesson</button></div><div id="answer" class="answer"></div></div>
+      </section>
+    </main>
+    <div class="foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 4.5 6v5.5c0 4.8 3.2 7.9 7.5 9.5 4.3-1.6 7.5-4.7 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>Personal study tool · No bot · No account required</div>
+    <p class="note">The Gemini API requires an internet connection and has usage limits.</p>
+  </div>
+<script>
+(() => {
+  const MODEL = 'gemini-3.1-flash-lite';
+  const fileInput = document.getElementById('photo');
+  const preview = document.getElementById('preview');
+  const dropzone = document.getElementById('dropzone');
+  const removePhoto = document.getElementById('removePhoto');
+  const textInput = document.getElementById('dutchText');
+  const keyInput = document.getElementById('apiKey');
+  const levelSelect = document.getElementById('level');
+  const analyzeButton = document.getElementById('analyze');
+  const status = document.getElementById('status');
+  const answer = document.getElementById('answer');
+  const empty = document.getElementById('empty');
+  const resultContent = document.getElementById('resultContent');
+  let selectedFile = null;
+  let selectedImageData = null;
+  let lastAnswer = '';
+
+  function setStatus(message, type) {
+    status.textContent = message;
+    status.className = 'status show ' + type;
+  }
+  function clearStatus() { status.textContent = ''; status.className = 'status'; }
+  function loadPhoto(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { setStatus('Please choose an image file.', 'error'); return; }
+    selectedFile = file;
+    const reader = new FileReader();
+    reader.onload = () => { preview.src = reader.result; dropzone.classList.add('has-image'); clearStatus(); };
+    reader.readAsDataURL(file);
+  }
+  fileInput.addEventListener('change', () => loadPhoto(fileInput.files && fileInput.files[0]));
+  removePhoto.addEventListener('click', () => {
+    selectedFile = null; selectedImageData = null; fileInput.value = ''; preview.removeAttribute('src'); dropzone.classList.remove('has-image'); clearStatus();
+  });
+  ['dragenter','dragover'].forEach(type => dropzone.addEventListener(type, e => { e.preventDefault(); dropzone.classList.add('drag'); }));
+  ['dragleave','drop'].forEach(type => dropzone.addEventListener(type, e => { e.preventDefault(); dropzone.classList.remove('drag'); }));
+  dropzone.addEventListener('drop', e => { const file = e.dataTransfer.files && e.dataTransfer.files[0]; if (file) loadPhoto(file); });
+  document.getElementById('toggleKey').addEventListener('click', () => {
+    keyInput.type = keyInput.type === 'password' ? 'text' : 'password';
+    document.getElementById('toggleKey').setAttribute('aria-label', keyInput.type === 'password' ? 'Show API key' : 'Hide API key');
+  });
+  document.getElementById('copyAnswer').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(lastAnswer); setStatus('Lesson copied to clipboard.', 'info'); }
+    catch (_) { setStatus('Copy is unavailable in this browser. You can select the lesson text instead.', 'error'); }
+  });
+
+  function prepareImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Could not read that photo. Please choose it again.'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('This image format could not be opened. Try a JPG or PNG photo.'));
+        img.onload = () => {
+          const maxSide = 1600;
+          const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          const ctx = canvas.getContext('2d', { alpha: false });
+          ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+          resolve({ mimeType: 'image/jpeg', data: dataUrl.split(',')[1] });
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function extractAnswer(data) {
+    const candidate = data && data.candidates && data.candidates[0];
+    const parts = candidate && candidate.content && candidate.content.parts;
+    return parts ? parts.map(p => p.text || '').join('').trim() : '';
+  }
+
+  function explainApiError(response, body) {
+    const message = body && body.error && body.error.message ? body.error.message : '';
+    if (response.status === 400 || response.status === 401 || response.status === 403) return 'Gemini did not accept the API key or request. Check that you copied the key correctly and that it can access the Gemini API.' + (message ? ' Details: ' + message : '');
+    if (response.status === 429) return 'The Gemini free-tier usage limit was reached. Please wait and try again later.';
+    return 'Gemini could not complete the request (' + response.status + '). Please try again.' + (message ? ' Details: ' + message : '');
+  }
+
+  analyzeButton.addEventListener('click', async () => {
+    clearStatus();
+    const key = keyInput.value.trim();
+    const pastedText = textInput.value.trim();
+    if (!key) { setStatus('Paste your Gemini API key first. It is not saved by this page.', 'error'); keyInput.focus(); return; }
+    if (!selectedFile && !pastedText) { setStatus('Choose a photo or paste some Dutch text first.', 'error'); return; }
+    analyzeButton.disabled = true;
+    analyzeButton.innerHTML = '<span class="spinner" aria-hidden="true"></span><span>Reading and explaining…</span>';
+    try {
+      const level = levelSelect.value.split(' ')[0];
+      const parts = [{ text: 'You are a friendly Dutch tutor. Explain the Dutch content below or in the attached photo in clear English for a learner at ' + level + ' level. If an image is attached, transcribe its Dutch text accurately first; mark any uncertain words rather than guessing. Keep the response useful and not too long. Use these exact headings: DUTCH TEXT; NATURAL ENGLISH; USEFUL WORDS; GRAMMAR; QUICK PRACTICE. Under USEFUL WORDS, explain 4 to 7 useful words or phrases with English meanings and a short Dutch example. Explain grammar in simple terms. End with one short practice question and its answer hidden only if the user asks. Do not say the text is not Dutch if it contains Dutch words; explain what can be read. ' + (pastedText ? '\n\nText supplied by the learner:\n' + pastedText : 'The learner supplied a photo. Transcribe and explain the Dutch text visible in it.') }];
+      if (selectedFile) {
+        const image = await prepareImage(selectedFile);
+        parts.push({ inline_data: { mime_type: image.mimeType, data: image.data } });
+      }
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + MODEL + ':generateContent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+        body: JSON.stringify({ contents: [{ parts }], generationConfig: { temperature: 0.3, maxOutputTokens: 1400 } })
+      });
+      let body;
+      try { body = await response.json(); } catch (_) { body = {}; }
+      if (!response.ok) throw new Error(explainApiError(response, body));
+      const result = extractAnswer(body);
+      if (!result) throw new Error('Gemini returned no lesson. Please try again with clearer text or a sharper photo.');
+      lastAnswer = result;
+      answer.textContent = result;
+      empty.style.display = 'none'; resultContent.classList.add('show');
+      setStatus('Your lesson is ready.', 'info');
+      document.querySelector('.result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (error) {
+      setStatus(error.message || 'Something went wrong. Please try again.', 'error');
+    } finally {
+      analyzeButton.disabled = false;
+      analyzeButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.64 5.64l2.12 2.12m8.48 8.48 2.12 2.12m0-12.72-2.12 2.12m-8.48 8.48-2.12 2.12"/><circle cx="12" cy="12" r="4"/></svg><span>Explain this Dutch</span>';
+    }
+  });
+})();
+</script>
+</body>
+</html>
+
